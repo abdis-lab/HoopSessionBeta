@@ -1,0 +1,19 @@
+{
+  "name": "hoopsessionbeta",
+  "version": "1.0.0",
+  "description": "The HoopSession is an Web Application For basketball players to find Nearby Pick up basketball games at there local gyms/community centers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "postcss src/main/resources/static/input.css -o src/main/resources/static/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.1"
+  }
+}
