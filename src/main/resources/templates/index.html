@@ -6,7 +6,7 @@
     <script src="https://kit.fontawesome.com/3cfd7f0753.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
  <!--  <link rel="stylesheet" th:href="@{output.css}"> -->
-    <link rel="stylesheet" href="../static/output.css">
+    <link rel="stylesheet" href="../static/css/output.css">
 </head>
 <body>
 <header class="bg-base-100">
@@ -70,7 +70,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="#about-section" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"></path>
@@ -105,7 +105,7 @@
 
 <section class="hero">
     <div class="hero-overlay opacity-25 h-[100vh]">
-        <img class="h-[100vh] w-full object-cover" src="../videos/pexels-markus-spiske-1752757.jpg" alt="basketball going in">
+        <img class="h-[100vh] w-full object-cover" src="../static/videos/pexels-markus-spiske-1752757.jpg" alt="basketball going in">
     </div>
     <div class="hero-content prose flex flex-col text-center">
         <h1 class=""><span class="text-accent">N</span>ever miss a chance to ball.</h1>
@@ -116,10 +116,10 @@
 
 <section id="about-section" class="my-5 h-screen space-y-3 mx-auto container flex">
     <div class="flex flex-1 gap-2 flex-wrap md:flex-nowrap">
-        <div class="flex flex-grow card justify-center items-center p-4">
-            <img src="../videos/pexels-markus-spiske-1752757.jpg" class="rounded-3xl md:w-full h-auto" alt="basketball">
+        <div class="flex max-w-[20vw] min-w-[20vw] flex-grow card justify-center items-center p-4">
+            <img src="../static/videos/pexels-markus-spiske-1752757.jpg" class="rounded-3xl md:w-full h-auto" alt="basketball">
         </div>
-        <div class="flex flex-grow card card-body rounded-box justify-center items-center p-4">
+        <div class="flex flex-grow min-w-[20vw] max-w-[20vw] card card-body rounded-box justify-center items-center p-4">
             <div>
                 <h1 class="text-center text-xl font-bold mb-2 text-accent">About HoopSession</h1>
                 <p class="text-sm">
@@ -168,6 +168,6 @@
     </div>
 </footer>
 
-<script src="../scripts/index.js"></script>
+<script src="../static/scripts/index.js"></script>
 </body>
 </html>
