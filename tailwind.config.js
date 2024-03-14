@@ -10,18 +10,14 @@ module.exports = {
       require("@tailwindcss/typography"), require("daisyui")
   ],
     daisyui: {
-      themes: [
-          {
-              mytheme: {
-                  "primary": "#00b4d8",
-                  "secondary": "#0077b6",
-                  "neutral": "#020122",
-                  "accent": "#90e0ef",
-                  "grey": "#6c757d",
-                  "base-100": "#3d4451"
-              }
-          }
-      ]
-    }
+        themes: [
+            {
+                sunset: {
+                    ...require("daisyui/src/theming/themes")["sunset"],
+                    accent: "#FFFDD0"
+                },
+            },
+        ],
+    },
 }
 
