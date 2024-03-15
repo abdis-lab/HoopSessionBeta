@@ -23,9 +23,12 @@
                 <li><a th:href="@{about-section}">About</a></li>
             </ul>
         </div>
-        <div class="sign-in-up hidden lg:flex space-x-3">
+        <div th:if="${not #authorization.expression('isAuthenticated()')}" class="sign-in-up hidden lg:flex space-x-3">
             <a href="/signin" class="btn btn-accent px-10 btn-outline">Sign In</a>
             <a href="/signup" class="btn btn-accent px-10 btn-outline">Sign Up</a>
+        </div>
+        <div th:if="${#authorization.expression('isAuthenticated()')}">
+            <img src="" class="rounded-full h-5 w-5" alt="">
         </div>
     </nav>
 </header>

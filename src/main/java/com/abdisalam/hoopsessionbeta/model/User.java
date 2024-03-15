@@ -20,16 +20,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_ID;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userName;
 
     @Column()
     private String name;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 256)
+    @Column(nullable = false)
     private String password;
 
     @Column(name = "Skill_Level")

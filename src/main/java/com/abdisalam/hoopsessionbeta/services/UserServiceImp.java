@@ -24,7 +24,7 @@ public class UserServiceImp implements UserService{
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder){
@@ -54,13 +54,14 @@ public class UserServiceImp implements UserService{
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
+        System.out.println("Password length: " + userDto.getPassword().length());
+
         Role role = roleRepository.findByName("ROLE_ADMIN");
         if(role == null){
             role = checkRoleExsit();
         }
         user.setRolesList(Arrays.asList(role));
         userRepository.save(user);
-
     }
 
     public Role checkRoleExsit(){
@@ -85,7 +86,7 @@ public class UserServiceImp implements UserService{
         List<User>users = userRepository.findAll();
 
         return users.stream()
-                .map((user) -> mapToStudentDto(user))
+                .map(this::mapToStudentDto)
                 .collect(Collectors.toList());
     }
 
@@ -99,6 +100,7 @@ public class UserServiceImp implements UserService{
         userDto.setCity(user.getCity());
         userDto.setSkillLevel(user.getSkill_Level());
         userDto.setUsername(user.getUserName());
+        userDto.setPassword(user.getPassword());
 
         return userDto;
 
