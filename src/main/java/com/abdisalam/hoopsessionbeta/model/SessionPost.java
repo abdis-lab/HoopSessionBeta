@@ -1,10 +1,7 @@
 package com.abdisalam.hoopsessionbeta.model;
 
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +10,7 @@ import lombok.ToString;
 /* This class holds the data for the sessions that the user posts */
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

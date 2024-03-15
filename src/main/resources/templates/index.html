@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="sunset">
+<html lang="en" data-theme="sunset" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Home Page</title>
     <script src="https://kit.fontawesome.com/3cfd7f0753.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
- <!--  <link rel="stylesheet" th:href="@{output.css}"> -->
-    <link rel="stylesheet" href="../static/css/output.css">
+    <link rel="stylesheet" th:href="@{/css/output.css}">
 </head>
 <body>
 <header class="bg-base-100">
@@ -17,10 +17,10 @@
         </button>
         <div class="navigation hidden lg:flex justify-center items-center flex-grow">
             <ul class="flex space-x-10">
-                <li><a href="/home">Homepage</a></li>
-                <li><a href="/portfolio">Profile</a></li>
-                <li><a href="/sessions">Sessions</a></li>
-                <li><a href="#about-section">About</a></li>
+                <li><a th:href="@{index}">Homepage</a></li>
+                <li><a th:href="@{profile}">Profile</a></li>
+                <li><a th:href="@{sessions}">Sessions</a></li>
+                <li><a th:href="@{about-section}">About</a></li>
             </ul>
         </div>
         <div class="sign-in-up hidden lg:flex space-x-3">
@@ -105,19 +105,19 @@
 
 <section class="hero">
     <div class="hero-overlay opacity-25 h-[100vh]">
-        <img class="h-[100vh] w-full object-cover" src="../static/videos/pexels-markus-spiske-1752757.jpg" alt="basketball going in">
+        <img class="h-[100vh] w-full object-cover" th:src="@{/videos/pexels-markus-spiske-1752757.jpg}" alt="basketball going in">
     </div>
     <div class="hero-content prose flex flex-col text-center">
         <h1 class=""><span class="text-accent">N</span>ever miss a chance to ball.</h1>
         <p>Find & join nearby basketball sessions!</p>
-        <a href="#" class="btn btn-accent btn-outline">Find HoopSession</a>
+        <a th:href="@{/register}" class="btn btn-accent btn-outline">Find HoopSession</a>
     </div>
 </section>
 
 <section id="about-section" class="my-5 h-screen space-y-3 mx-auto container flex">
     <div class="flex flex-1 gap-2 justify-center flex-wrap md:flex-nowrap">
         <div class="flex flex-grow card justify-center items-center p-4">
-            <img src="../static/videos/pexels-markus-spiske-1752757.jpg" class="rounded-3xl md:w-full h-auto" alt="basketball">
+            <img th:src="@{/videos/pexels-markus-spiske-1752757.jpg}" class="rounded-3xl md:w-full h-auto" alt="basketball">
         </div>
         <div class="flex flex-grow card card-body rounded-box justify-center items-center p-4">
             <div>
@@ -168,6 +168,6 @@
     </div>
 </footer>
 
-<script src="../static/scripts/index.js"></script>
+<script th:src="@{/scripts/index.js}"></script>
 </body>
 </html>
