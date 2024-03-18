@@ -4,8 +4,13 @@ package com.abdisalam.hoopsessionbeta.controller;
 import com.abdisalam.hoopsessionbeta.dto.UserDto;
 import com.abdisalam.hoopsessionbeta.model.User;
 import com.abdisalam.hoopsessionbeta.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.modelmapper.internal.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,9 +38,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(HttpServletRequest request){
+        if(areYouAuthenticated()){
+            return "redirect:/index";
+        }
+
         return "login";
     }
+
 
     @GetMapping("/register")
     public String register(Model model){
@@ -45,6 +55,12 @@ public class UserController {
 
         return "register";
     }
+
+    private boolean areYouAuthenticated(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
+
 
     @PostMapping("/register/save")
     public String registrationProcess(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, Model model){
@@ -58,7 +74,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             model.addAttribute("user", userDto);
 
-            return "/register";
+            return "register";
         }
 
         userService.saveUser(userDto);
