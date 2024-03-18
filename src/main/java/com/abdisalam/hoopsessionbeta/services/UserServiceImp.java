@@ -82,6 +82,11 @@ private PasswordEncoder passwordEncoder;
     }
 
     @Override
+    public User findUserByUser_Id(Long id) {
+        return userRepository.findUserByUser_Id(id);
+    }
+
+    @Override
     public List<UserDto> findAllUser() {
         List<User>users = userRepository.findAll();
 

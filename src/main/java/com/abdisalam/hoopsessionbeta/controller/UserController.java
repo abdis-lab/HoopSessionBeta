@@ -14,20 +14,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
 
     private UserService userService;
+    private UserDto userDto;
 
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, UserDto userDto){
         this.userService = userService;
+        this.userDto = userDto;
     }
 
 
@@ -55,6 +54,46 @@ public class UserController {
 
         return "register";
     }
+
+    @GetMapping("/sessions")
+    public String sessionPost(){
+        return "sessionPost";
+    }
+
+    @GetMapping("/profile/{id}/{name}")
+    public String userProfile(@PathVariable("name") String usersName,@PathVariable("id") Long id, Model model){
+
+        User user = userService.findUserByUser_Id(id);
+
+
+        if(user != null && user.getName().equals(usersName)){
+            model.addAttribute("user", user);
+            return "profile";
+        }else{
+            return "redirect:/error";
+        }
+    }
+
+    @ModelAttribute("currentUser")
+    public String currentUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()){
+            String username = authentication.getName();
+            User user = userService.findUserByUserName(username);
+            if(user != null){
+                String urlFriendlyName = makeUrlFriendly(user.getName());
+                return "/profile/" + user.getUser_ID() + "/" + user.getUserName();
+            }
+        }
+
+        return null;
+    }
+
+    private String makeUrlFriendly(String name){
+        return name.toLowerCase().replace(" ", "-");
+    }
+
+
 
     private boolean areYouAuthenticated(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
