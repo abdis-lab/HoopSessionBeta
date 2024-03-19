@@ -51,6 +51,7 @@ private PasswordEncoder passwordEncoder;
         user.setCity(userDto.getCity());
         user.setUserName(userDto.getUsername());
         user.setState(userDto.getState());
+        user.setSkillLevelDisc(userDto.getSkillLevelDisc());
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
@@ -103,7 +104,7 @@ private PasswordEncoder passwordEncoder;
         userDto.setLastName(str[1]);
         userDto.setEmail(user.getEmail());
         userDto.setCity(user.getCity());
-        userDto.setSkillLevel(user.getSkill_Level());
+        userDto.setSkillLevelDisc(user.getSkillLevelDisc());
         userDto.setUsername(user.getUserName());
         userDto.setPassword(user.getPassword());
 

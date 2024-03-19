@@ -19,7 +19,7 @@
         <div class="navigation hidden lg:flex justify-center items-center flex-grow">
             <ul class="flex space-x-10">
                 <li><a th:href="@{/index}">Homepage</a></li>
-                <li><a th:href="@{${currentUser}}">Profile</a></li>
+                <li><a th:href="@{$}">Profile</a></li>
                 <li><a th:href="@{/sessions}">Sessions</a></li>
                 <li><a href="#about-section">About</a></li>
             </ul>
@@ -33,7 +33,7 @@
             <div class="dropdown dropdown-end relative">
                 <i class="fa-solid fa-user text-3xl" tabindex="0" role="button"></i>
                 <ul tabindex="0" class="menu absolute dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                    <li><a>Item 1</a></li>
+                    <li><span>Abdisalam kadir</span></li>
                     <li>
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="">Logout</button>
@@ -72,7 +72,7 @@
             </li>
             <div><hr></div>
             <li>
-                <a th:href="@{sessions}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a th:href="@{/sessions}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v5l3 3"></path>

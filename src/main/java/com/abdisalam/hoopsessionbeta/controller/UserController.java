@@ -59,13 +59,13 @@ public class UserController {
         return "sessionPost";
     }
 
-    @GetMapping("/profile/{id}/{name}")
-    public String userProfile(@PathVariable("name") String usersName,@PathVariable("id") Long id, Model model){
+    @GetMapping("/profile/{username}")
+    public String userProfile(@PathVariable("username") String usersName, Model model){
 
-        User user = userService.findUserByUserId(id);
+        User user = userService.findUserByUserName(usersName);
 
 
-        if(user != null && user.getName().equals(usersName)){
+        if(user != null){
             model.addAttribute("user", user);
             return "profile";
         }else{
@@ -81,7 +81,7 @@ public class UserController {
             User user = userService.findUserByUserName(username);
             if(user != null){
                 String urlFriendlyName = makeUrlFriendly(user.getName());
-                return "/profile/" + user.getUserId() + "/" + user.getUserName();
+                return "profile/" + urlFriendlyName;
             }
         }
 

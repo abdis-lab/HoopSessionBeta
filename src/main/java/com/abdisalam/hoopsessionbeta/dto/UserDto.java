@@ -37,5 +37,5 @@ public class UserDto {
     private String state;
 
 
-    private String skillLevel;
+    private String skillLevelDisc;
 }

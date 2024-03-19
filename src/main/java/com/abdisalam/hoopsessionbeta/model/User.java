@@ -33,7 +33,7 @@ public class User {
     private String password;
 
     @Column(name = "Skill_Level")
-    private String skill_Level;
+    private String skillLevelDisc;
 
     private String time;
 
@@ -54,13 +54,13 @@ public class User {
     @OneToMany(targetEntity = SessionPost.class)
     private List<SessionPost> sessionPosts;
 
-    public User(String userName,String time, String name, String email, String password,List<Role> rolesList, String skill_Level, String city, String state) {
+    public User(String userName,String time, String name, String email, String password,List<Role> rolesList, String skillLevelDisc, String city, String state) {
         this.userName = userName;
         this.name = name;
         this.time = time;
         this.email = email;
         this.password = password;
-        this.skill_Level = skill_Level;
+        this.skillLevelDisc = skillLevelDisc;
         this.city = city;
         this.state = state;
         this.rolesList = rolesList;
