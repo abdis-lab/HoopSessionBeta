@@ -82,8 +82,8 @@ private PasswordEncoder passwordEncoder;
     }
 
     @Override
-    public User findUserByUser_Id(Long id) {
-        return userRepository.findUserByUser_Id(id);
+    public User findUserByUserId(Long id) {
+        return userRepository.findUserByUserId(id);
     }
 
     @Override

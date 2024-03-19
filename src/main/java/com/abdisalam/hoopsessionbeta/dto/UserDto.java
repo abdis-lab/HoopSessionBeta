@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 public class UserDto {
 
 

@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private UserService userService;
-    private UserDto userDto;
+
 
 
     @Autowired
-    public UserController(UserService userService, UserDto userDto){
+    public UserController(UserService userService){
         this.userService = userService;
-        this.userDto = userDto;
     }
 
 
@@ -63,7 +62,7 @@ public class UserController {
     @GetMapping("/profile/{id}/{name}")
     public String userProfile(@PathVariable("name") String usersName,@PathVariable("id") Long id, Model model){
 
-        User user = userService.findUserByUser_Id(id);
+        User user = userService.findUserByUserId(id);
 
 
         if(user != null && user.getName().equals(usersName)){
@@ -82,7 +81,7 @@ public class UserController {
             User user = userService.findUserByUserName(username);
             if(user != null){
                 String urlFriendlyName = makeUrlFriendly(user.getName());
-                return "/profile/" + user.getUser_ID() + "/" + user.getUserName();
+                return "/profile/" + user.getUserId() + "/" + user.getUserName();
             }
         }
 

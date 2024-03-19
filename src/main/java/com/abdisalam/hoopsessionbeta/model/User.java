@@ -18,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_ID;
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     private String userName;
@@ -43,18 +43,18 @@ public class User {
     @Column(nullable = false, length = 2)
     private String state;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
-            joinColumns = {@JoinColumn(name = "userID", referencedColumnName = "user_ID") },
-            inverseJoinColumns = {@JoinColumn(name = "roleID", referencedColumnName = "roleID")}
+            joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "userId") },
+            inverseJoinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "roleId")}
     )
     private List<Role> rolesList;
 
     @OneToMany(targetEntity = SessionPost.class)
     private List<SessionPost> sessionPosts;
 
-    public User(String userName,String time, String name, String email, String password, String skill_Level, String city, String state) {
+    public User(String userName,String time, String name, String email, String password,List<Role> rolesList, String skill_Level, String city, String state) {
         this.userName = userName;
         this.name = name;
         this.time = time;
@@ -63,6 +63,7 @@ public class User {
         this.skill_Level = skill_Level;
         this.city = city;
         this.state = state;
+        this.rolesList = rolesList;
     }
 }
 
