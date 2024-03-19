@@ -19,6 +19,14 @@ public class SessionPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sessionPost_ID;
+    private int sessionPostId;
+
+    @Column()
+    private String dateTime;
+
+    private int maxPlayers;
+
+    private String description;
+
 
 }
