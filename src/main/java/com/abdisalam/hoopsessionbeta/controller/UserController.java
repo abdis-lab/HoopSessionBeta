@@ -106,7 +106,7 @@ public class UserController {
         User exUser = userService.findUserByUserName(userDto.getUsername());
 
         if(exUser != null && exUser.getUserName() != null && !exUser.getUserName().isEmpty()){
-            bindingResult.rejectValue("email", null, "There is an account registered with that account");
+            bindingResult.rejectValue("email", null, "There is an account registered with that username");
         }
 
         if(bindingResult.hasErrors()){
