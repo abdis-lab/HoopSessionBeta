@@ -33,7 +33,7 @@ public class SessionPost {
 
     private String title;
 
-    private BigDecimal cost;
+    private double cost;
 
     private int duration;
 
@@ -50,7 +50,7 @@ public class SessionPost {
     @JoinColumn(name = "facilityId")
     private Facility facility;
 
-    public SessionPost(byte[] image, String imageContentType, String dateTime, int maxPlayers, String description, String title, BigDecimal cost, int duration, LocalDateTime startTime, LocalDateTime endTime, Facility facility) {
+    public SessionPost(byte[] image, String imageContentType, String dateTime, int maxPlayers, String description, String title, double cost, int duration, LocalDateTime startTime, LocalDateTime endTime, Facility facility) {
         this.dateTime = dateTime;
         this.maxPlayers = maxPlayers;
         this.description = description;

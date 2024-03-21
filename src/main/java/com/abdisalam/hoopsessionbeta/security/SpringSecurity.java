@@ -36,8 +36,8 @@ public class SpringSecurity {
                 .userDetailsService(customUserDetailService)
 
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/videos/**").permitAll()
-                        .requestMatchers("/register/**","/register", "/index", "/login").permitAll()
+                        .requestMatchers("/css/**", "/scripts/**", "/images/**", "/videos/**").permitAll()
+                        .requestMatchers("/register/**","/register", "/index", "/login", "index.js", "/session.js").permitAll()
                         .requestMatchers("/profile/**").authenticated()
                         .requestMatchers("/session", "/profile").hasRole("ADMIN")
                         .anyRequest().authenticated()

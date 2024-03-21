@@ -26,7 +26,7 @@
             method="post"
             role="form"
             th:action="@{/register/save}"
-            th:object="${user}"
+            th:object="${userDto}"
             class=" mx-auto">
         <div class="relative z-0 w-full mb-5 group">
             <input type="email" th:field="*{email}" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-secondary appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-accent peer" placeholder=" " required />

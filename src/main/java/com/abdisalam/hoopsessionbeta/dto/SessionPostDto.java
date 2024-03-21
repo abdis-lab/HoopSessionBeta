@@ -1,6 +1,7 @@
 package com.abdisalam.hoopsessionbeta.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,18 +22,18 @@ public class SessionPostDto {
     private String description;
 
 
-    private BigDecimal cost;
+    private double cost;
 
-    @NotEmpty
+
     private MultipartFile image;
 
-    @NotEmpty
+
     private LocalDateTime startTime;
-    @NotEmpty
+
     private LocalDateTime endTime;
 
 
-    public SessionPostDto(String title, String description, BigDecimal cost, MultipartFile image) {
+    public SessionPostDto(String title, String description, double cost, MultipartFile image) {
         this.title = title;
         this.description = description;
         this.cost = cost;

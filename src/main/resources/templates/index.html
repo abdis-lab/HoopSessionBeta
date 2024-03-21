@@ -19,8 +19,8 @@
         <div class="navigation hidden lg:flex justify-center items-center flex-grow">
             <ul class="flex space-x-10">
                 <li><a th:href="@{/index}">Homepage</a></li>
-                <li><a th:href="@{/profile}">Profile</a></li>
-                <li><a th:href="@{/sessions}">Sessions</a></li>
+                <li><a th:href="@{/profile/{username}(username=${user.getUserName()})}">Profile</a></li>
+                <li><a th:href="@{/sessionPost}">Sessions</a></li>
                 <li><a href="#about-section">About</a></li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
             <div class="dropdown dropdown-end relative">
                 <i class="fa-solid fa-user text-3xl" tabindex="0" role="button"></i>
                 <ul tabindex="0" class="menu absolute dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                    <li><span>Abdisalam kadir</span></li>
+                    <li><span th:text="${user.getName()}"></span></li>
                     <li>
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="">Logout</button>

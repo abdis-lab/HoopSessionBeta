@@ -38,4 +38,15 @@ public class UserDto {
 
 
     private String skillLevelDisc;
+
+    public UserDto(String email, String username, String password, String firstName, String lastName, String city, String state, String skillLevelDisc) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        LastName = lastName;
+        this.city = city;
+        this.state = state;
+        this.skillLevelDisc = skillLevelDisc;
+    }
 }

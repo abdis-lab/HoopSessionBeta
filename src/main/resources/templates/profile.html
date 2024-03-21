@@ -9,22 +9,37 @@
     <title>Profile</title>
 </head>
 <body>
-<nav class="navbar bg-neutral text-white p-4 flex justify-between items-center shadow-md">
-    <a href="index.html" class="logo text-3xl">HoopSession</a>
-    <div class="navigation hidden lg:flex items-center">
-        <ul class="flex space-x-4 lg:space-x-8">
-            <li><a href="index.html" class="hover:text-blue-300">Homepage</a></li>
-            <li><a href="profile.html" class="hover:text-blue-300">Profile</a></li>
-            <li><a href="sessions.html" class="hover:text-blue-300">Sessions</a></li>
-        </ul>
-    </div>
-    <button class="menu-toggle lg:hidden text-xl">
+<nav class="navbar fixed top-0 left-0 z-10 w-full bg-neutral p-4 flex justify-between items-center">
+    <a th:href="@{index}" class="logo text-3xl cursor-pointer">HoopSession</a>
+    <button class="menu-toggle text-white lg:hidden text-2xl" data-drawer-toggle="myDrawer">
         <i class="fa-solid fa-bars"></i>
     </button>
+    <div class="navigation hidden lg:flex justify-center items-center flex-grow">
+        <ul class="flex space-x-10">
+            <li><a th:href="@{/index}">Homepage</a></li>
+            <li><a th:href="@{/profile/{username}(username=${user.getUserName()})}">Profile</a></li>
+            <li><a th:href="@{/sessionPost}">Sessions</a></li>
+        </ul>
+    </div>
+    <div th:if="${#authorization.expression('isAuthenticated()')}" class="hidden lg:block">
+
+        <div class="dropdown dropdown-end relative">
+            <i class="fa-solid fa-user text-3xl" tabindex="0" role="button"></i>
+            <ul tabindex="0" class="menu absolute dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                <li><span th:text="${user.getName()}"></span></li>
+                <li>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+    </div>
 </nav>
 
 
-<section class="container mx-auto mt-6 p-4 space-y-6">
+<section class="container  mx-auto mt-20 p-4 space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-3 justify-center gap-6">
         <!-- Profile Card (PC) -->
         <div class="md:col-span-1 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4">
@@ -52,8 +67,8 @@
                     </div>
                     <div class="flex flex-col items-center pb-10">
                         <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image"/>
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
+                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" th:text="${user.getName()}"></h5>
+                        <span class="text-sm text-gray-500 dark:text-gray-400" th:text="${user.getEmail()}"></span>
                         <div class="flex mt-4 md:mt-6">
                             <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add friend</a>
                             <a href="#" class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Message</a>
@@ -103,9 +118,6 @@
                     </li>
                     <li class="me-2">
                         <button id="services-tab" data-tabs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="false" class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">Attended Session</button>
-                    </li>
-                    <li class="me-2">
-                        <button id="statistics-tab" data-tabs-target="#statistics" type="button" role="tab" aria-controls="statistics" aria-selected="false" class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">Facts</button>
                     </li>
                 </ul>
                 <div id="defaultTabContent">
