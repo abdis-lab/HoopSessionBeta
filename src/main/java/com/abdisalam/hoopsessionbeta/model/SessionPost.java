@@ -1,16 +1,12 @@
 package com.abdisalam.hoopsessionbeta.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-/* This class holds the data for the sessions that the user posts */
 
 @Data
 @Entity
@@ -22,12 +18,7 @@ public class SessionPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sessionPostId;
-
-    @Column()
-    private String dateTime;
-
-    private int maxPlayers;
+    private Long sessionPostId;
 
     private String description;
 
@@ -35,32 +26,29 @@ public class SessionPost {
 
     private double cost;
 
-    private int duration;
-
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
 
-    @Lob
-    private byte[] image;
-
-    private String imageContentType;
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facilityId")
     private Facility facility;
 
-    public SessionPost(byte[] image, String imageContentType, String dateTime, int maxPlayers, String description, String title, double cost, int duration, LocalDateTime startTime, LocalDateTime endTime, Facility facility) {
-        this.dateTime = dateTime;
-        this.maxPlayers = maxPlayers;
+    // Write the relationship with the user class here
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userSessionPost")
+    private User user;
+
+    public SessionPost(String imageUrl, String description, String title, double cost, LocalDateTime startTime, LocalDateTime endTime, Facility facility, User user) {
         this.description = description;
         this.title = title;
         this.cost = cost;
-        this.duration = duration;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.imageUrl = imageUrl;
         this.facility = facility;
-        this.image = image;
-        this.imageContentType = imageContentType;
+        this.user = user;
     }
 }

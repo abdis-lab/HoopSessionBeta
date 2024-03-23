@@ -1,8 +1,11 @@
 package com.abdisalam.hoopsessionbeta.controller;
 
 import com.abdisalam.hoopsessionbeta.dto.SessionPostDto;
+import com.abdisalam.hoopsessionbeta.dto.UserDto;
 import com.abdisalam.hoopsessionbeta.model.SessionPost;
+import com.abdisalam.hoopsessionbeta.model.User;
 import com.abdisalam.hoopsessionbeta.services.SessionPostService;
+import com.abdisalam.hoopsessionbeta.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,28 +14,38 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class SessionPostController {
     private final SessionPostService sessionPostService;
+    private final UserService userService;
 
     private static final String SESSIONS_POST_KEY = "sessionsPost";
 
     @Autowired
-    public SessionPostController(SessionPostService sessionPostService) {
+    public SessionPostController(SessionPostService sessionPostService, UserService userService) {
         this.sessionPostService = sessionPostService;
+        this.userService = userService;
     }
+
+    @ModelAttribute("/user")
+    public String userInfo(Model model){
+        List<UserDto> users = userService.findAllUser();
+
+
+        model.addAttribute("userInfo", users);
+        return "sessionPost";
+    }
+
 
     @GetMapping("/sessionPost")
     public String sessionForm(Model model) {
         List<SessionPostDto> sessionPostDtoList = sessionPostService.findAllSessionPost();
         model.addAttribute("sessionPostDtoList", sessionPostDtoList);
         SessionPostDto sessionPostDto = new SessionPostDto();
-        sessionPostDto.setTitle("The chosen one");
-        sessionPostDto.setDescription("The one who leaads his team");
-        sessionPostDto.setCost(24.3);
-        sessionPostDto.setStartTime(LocalDateTime.now());
+
 
         model.addAttribute(SESSIONS_POST_KEY, sessionPostDto);
         return "sessionPost";

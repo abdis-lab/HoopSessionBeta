@@ -23,14 +23,14 @@ public class HoopSessionBetaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        SessionPost sessionPost = new SessionPost();
-        sessionPost.setTitle("Sample Title");
-        sessionPost.setDescription("Sample discription hello world");
-        sessionPost.setCost(23.3);
-        sessionPost.setStartTime(LocalDateTime.now());
-        sessionPost.setEndTime(LocalDateTime.now());
-
-        sessionPostRepository.save(sessionPost);
+//        SessionPost sessionPost = new SessionPost();
+//        sessionPost.setTitle("Sample Title");
+//        sessionPost.setDescription("Sample discription hello world");
+//        sessionPost.setCost(23.3);
+//        sessionPost.setStartTime(LocalDateTime.now());
+//        sessionPost.setEndTime(LocalDateTime.now());
+//
+//        sessionPostRepository.save(sessionPost);
 
 
     }

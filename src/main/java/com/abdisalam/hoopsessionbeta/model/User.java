@@ -1,6 +1,7 @@
 package com.abdisalam.hoopsessionbeta.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -51,10 +52,10 @@ public class User {
     )
     private List<Role> rolesList;
 
-    @OneToMany(targetEntity = SessionPost.class)
+    @OneToMany(targetEntity = SessionPost.class, mappedBy = "user")
     private List<SessionPost> sessionPosts;
 
-    public User(String userName,String time, String name, String email, String password,List<Role> rolesList, String skillLevelDisc, String city, String state) {
+    public User(String userName,List<SessionPost> sessionPosts, String time, String name, String email, String password,List<Role> rolesList, String skillLevelDisc, String city, String state) {
         this.userName = userName;
         this.name = name;
         this.time = time;
@@ -64,6 +65,7 @@ public class User {
         this.city = city;
         this.state = state;
         this.rolesList = rolesList;
+        this.sessionPosts = new ArrayList<>();
     }
 }
 
