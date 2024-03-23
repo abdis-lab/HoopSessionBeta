@@ -10,6 +10,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Represents a User in the system.
+ * The User class is used to store information about a user, such as their username, name, email, password,
+ * skill level, time, city, and state. It also contains a list of roles associated with the user and a list of
+ * session posts created by the user.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

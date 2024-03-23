@@ -8,6 +8,7 @@ import com.abdisalam.hoopsessionbeta.services.SessionPostService;
 import com.abdisalam.hoopsessionbeta.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,21 +31,27 @@ public class SessionPostController {
         this.userService = userService;
     }
 
-    @ModelAttribute("/user")
-    public String userInfo(Model model){
-        List<UserDto> users = userService.findAllUser();
+    private User getUserByAuthentication(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            return userService.findUserByUserName(username);
+        }
+        return null;
+    }
 
-
-        model.addAttribute("userInfo", users);
-        return "sessionPost";
+    private User getOrCreateUser(User user) {
+        return user != null ? user : new User();
     }
 
 
     @GetMapping("/sessionPost")
-    public String sessionForm(Model model) {
+    public String sessionForm(Model model, Authentication authentication) {
         List<SessionPostDto> sessionPostDtoList = sessionPostService.findAllSessionPost();
         model.addAttribute("sessionPostDtoList", sessionPostDtoList);
         SessionPostDto sessionPostDto = new SessionPostDto();
+
+        User user = getUserByAuthentication(authentication);
+        model.addAttribute("user", user);
 
 
         model.addAttribute(SESSIONS_POST_KEY, sessionPostDto);

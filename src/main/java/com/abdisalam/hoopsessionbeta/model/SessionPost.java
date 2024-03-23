@@ -30,15 +30,13 @@ public class SessionPost {
 
     private LocalDateTime endTime;
 
-    private String imageUrl;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facilityId")
     private Facility facility;
 
     // Write the relationship with the user class here
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userSessionPost")
+    @JoinColumn(name = "userId")
     private User user;
 
     public SessionPost(String imageUrl, String description, String title, double cost, LocalDateTime startTime, LocalDateTime endTime, Facility facility, User user) {

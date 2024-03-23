@@ -27,8 +27,7 @@
         <div class="dropdown dropdown-end relative">
             <i class="fa-solid fa-user text-3xl" tabindex="0" role="button"></i>
             <ul tabindex="0" class="menu absolute dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                <li><span>Abdisalam kadir</span></li>
-                <li ><span></span></li>
+                <li><span th:text="${user.name}"></span></li>
                 <li>
                     <form th:action="@{/logout}" method="post">
                         <button type="submit" class="">Logout</button>
@@ -75,7 +74,7 @@
                 </a>
             </li>
             <li>
-                <a th:href="@{/profile/{username}(username=${userInfo})}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a th:href="@{/profile/{username}(username=${user.userName})}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 20a10 10 0 100-20 10 10 0 000 20zm0-2a8 8 0 100-16 8 8 0 000 16zm0-3a5 5 0 100-10 5 5 0 000 10zm-7-5a7 7 0 0114 0H3z" clip-rule="evenodd"/>
                     </svg>
@@ -90,7 +89,19 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
                 </a>
             </li>
-
+            <li>
+                <div class="dropdown dropdown-end relative">
+                    <i class="fa-solid fa-user text-3xl" tabindex="0" role="button"></i>
+                    <ul tabindex="0" class="menu absolute dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                        <li th:each="user : ${users}"><span th:text="${user.firstName + ' ' + user.lastName}"></span></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li th:if="${not #authorization.expression('isAuthenticated()')}">
                 <a th:href="@{register}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
@@ -109,6 +120,7 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Sign Up</span>
                 </a>
             </li>
+
         </ul>
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">Logout</button>
@@ -143,7 +155,7 @@
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" th:text="${postedSession.title}">Noteworthy technology acquisitions 2021</h5>
                         </a>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" th:text="${postedSession.description}">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">By: Abdisalam Kadir</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" th:text="'Hosted By ' + ${user.sessionPosts}"></p>
                         <div class="grid grid-cols-2 ">
                             <span class="col-span-2  py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" th:text="${'From: ' + postedSession.startTime + ' To: ' + postedSession.endTime}"></span>
                             <span class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" th:text="${'Cost $ ' + postedSession.cost}">Cost Free</span>
