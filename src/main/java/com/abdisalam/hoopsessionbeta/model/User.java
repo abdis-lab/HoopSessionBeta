@@ -19,7 +19,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "rolesList")
 @Entity
 public class User {
 
@@ -50,7 +50,7 @@ public class User {
     @Column(nullable = false, length = 2)
     private String state;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "userId") },

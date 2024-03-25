@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://kit.fontawesome.com/3cfd7f0753.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/output.css}" href="../static/css/output.css">
+    <title>Update Session</title>
+</head>
+<body>
+<div class="p-4 md:p-5 container max-w-2xl">
+    <form id="addSessionForm" th:action="@{/sessions/1 (id=${session.sessionId})}" th:object="${session}" class="space-y-4" enctype="multipart/form-data" method="post">
+        <div>
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tittle</label>
+            <input type="text" name="title" th:field="*{title}" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="where is the location?" required />
+        </div>
+        <div>
+            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+            <input type="text" name="description" th:field="*{description}" id="description" placeholder="short summary about he session" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+        </div>
+        <div>
+            <label for="cost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cost</label>
+            <input type="number" name="cost" id="cost" th:field="*{cost}" placeholder="$" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+        </div>
+        <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Image</label>
+            <input name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/png, image/jpeg" id="file_input" type="file">
+        </div>
+        <div class="flex flex-col gap-5">
+            <div class="flex flex-col">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="startTime">Start Time</label>
+                <input th:field="*{startTime}" class="block  p-4 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="startTime" type="datetime-local">
+            </div>
+            <div class="flex flex-col">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="endTime">End Time</label>
+                <input th:field="*{endTime}" class="block  w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="endTime" type="datetime-local">
+            </div>
+        </div>
+        <div class="flex gap-3 justify-between">
+            <a th:href="@{/sessionPost}" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</a>
+            <button type="submit" value="Submit" class="w-full text-white bg-base-100 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Update Session</button>
+        </div>
+
+
+    </form>
+</div>
+</body>
+</html>

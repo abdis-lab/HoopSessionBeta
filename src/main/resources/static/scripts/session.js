@@ -35,3 +35,17 @@ window.addEventListener('keydown', (event) => {
         })
     }
 })
+
+const dropdownBtn = document.querySelectorAll('.dropdownButton');
+
+// Add click event listener to the dropdown button
+dropdownBtn.forEach((button) => {
+    button.addEventListener('click', function() {
+        // Get the related dropdown menu for this button
+        let dropdownMenu = button.nextElementSibling;
+
+        dropdownMenu.classList.toggle('block');
+        dropdownMenu.classList.toggle('hidden');
+
+    });
+})

@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString()
 @Table(name = "sessionPost")
 public class SessionPost {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long sessionPostId;
 
     private String description;
@@ -30,11 +30,12 @@ public class SessionPost {
 
     private LocalDateTime endTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "facilityId")
     private Facility facility;
 
     // Write the relationship with the user class here
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -45,7 +46,6 @@ public class SessionPost {
         this.cost = cost;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.imageUrl = imageUrl;
         this.facility = facility;
         this.user = user;
     }

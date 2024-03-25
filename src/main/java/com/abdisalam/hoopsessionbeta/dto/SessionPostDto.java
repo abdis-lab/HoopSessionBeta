@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SessionPostDto {
 
+    private Long sessionId;
+
     @NotEmpty(message = "Enter a Facility Tittle")
     private String title;
 
@@ -24,19 +26,16 @@ public class SessionPostDto {
 
     private double cost;
 
-
-    private MultipartFile image;
-
-
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
 
 
-    public SessionPostDto(String title, String description, double cost, MultipartFile image) {
+    public SessionPostDto(String title, String description, double cost, LocalDateTime startTime, LocalDateTime endTime) {
         this.title = title;
         this.description = description;
         this.cost = cost;
-        this.image = image;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }

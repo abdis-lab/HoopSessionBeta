@@ -146,16 +146,32 @@
     <div th:if="${not #lists.isEmpty(sessionsPost)}">
         <div  id="sessionGrid"  class="grid grid-cols-1  lg:grid-cols-3 content-center md:grid-cols-2 gap-4">
 
-                <div th:each="postedSession : ${sessionPostDtoList}" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div th:each="postedSession : ${sessionPostDtoList}" class="relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class="h-auto max-w-full rounded-lg" th:src="@{/videos/pexels-abhay-siby-mathew-16625974.jpg}"  alt="">
                     </a>
+                    <button data-dropdown-toggle="dropdown" class="dropdownButton absolute top-2.5 right-2.5 inline-block dark:text-gray-400 bg-base-100 dark:hover:bg-gray-700 text-accent focus:outline-none  dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                            <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown" class="z-10 absolute top-3.5 left-3.5 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2" aria-labelledby="dropdownButton">
+                            <li>
+                                <a th:href="@{/sessions/edit/{id}(id=${postedSession.sessionId})}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/sessions/{id}(id=${postedSession.sessionId})}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="p-5">
                         <a href="#">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" th:text="${postedSession.title}">Noteworthy technology acquisitions 2021</h5>
                         </a>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" th:text="${postedSession.description}">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" th:text="'Hosted By ' + ${user.sessionPosts}"></p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" th:text="'Hosted By: ' + ${user.name}"></p>
                         <div class="grid grid-cols-2 ">
                             <span class="col-span-2  py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" th:text="${'From: ' + postedSession.startTime + ' To: ' + postedSession.endTime}"></span>
                             <span class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" th:text="${'Cost $ ' + postedSession.cost}">Cost Free</span>
@@ -211,8 +227,12 @@
                         <input type="number" name="cost" id="cost" th:field="*{cost}" placeholder="$" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
                     </div>
                     <div>
+                        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location/Address</label>
+                        <input type="text" name="location" id="location" th:field="*{cost}" placeholder="123 St Ave" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                    </div>
+                    <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Image</label>
-                        <input name="image" th:field="*{image}" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/png, image/jpeg" id="file_input" type="file">
+                        <input name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/png, image/jpeg" id="file_input" type="file">
                     </div>
                     <div class="flex flex-col gap-5">
                         <div class="flex flex-col">

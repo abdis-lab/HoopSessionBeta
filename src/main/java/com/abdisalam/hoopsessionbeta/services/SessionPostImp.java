@@ -4,6 +4,7 @@ import com.abdisalam.hoopsessionbeta.dto.SessionPostDto;
 import com.abdisalam.hoopsessionbeta.model.SessionPost;
 import com.abdisalam.hoopsessionbeta.repository.SessionPostRepository;
 import com.abdisalam.hoopsessionbeta.services.SessionPostService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +32,12 @@ public class SessionPostImp implements SessionPostService {
     public void saveSession(SessionPostDto sessionPostDto) {
         SessionPost sessionPost = convertToSessionPost(sessionPostDto);
         sessionPostRepository.save(sessionPost);
+    }
+
+    @Transactional
+    @Override
+    public SessionPost updateSession(SessionPost sessionPost) {
+        return sessionPostRepository.save(sessionPost);
     }
 
     private SessionPost convertToSessionPost(SessionPostDto sessionPostDto) {
@@ -68,8 +75,16 @@ public class SessionPostImp implements SessionPostService {
             sessionPostDto.setCost(sessionPost.getCost());
             sessionPostDto.setStartTime(sessionPost.getStartTime());
             sessionPostDto.setEndTime(sessionPost.getEndTime());
+            sessionPostDto.setSessionId(sessionPost.getSessionPostId());
+
+
 
             return sessionPostDto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteSession(Long id) {
+        sessionPostRepository.deleteById(id);
     }
 }

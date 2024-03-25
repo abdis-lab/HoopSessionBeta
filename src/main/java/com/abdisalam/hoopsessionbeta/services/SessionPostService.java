@@ -10,10 +10,13 @@ public interface SessionPostService {
 
     void saveSession(SessionPostDto sessionPostDto);
 
-
+    SessionPost updateSession(SessionPost sessionPost);
 
     SessionPost findBySessionPostId(Long id);
 
     SessionPost findByTitle(String title);
     List<SessionPostDto> findAllSessionPost();
+
+    void deleteSession(Long id);
+
 }

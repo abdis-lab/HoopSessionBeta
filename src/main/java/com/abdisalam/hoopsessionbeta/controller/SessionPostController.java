@@ -53,6 +53,9 @@ public class SessionPostController {
         User user = getUserByAuthentication(authentication);
         model.addAttribute("user", user);
 
+        SessionPost sessionPost = new SessionPost();
+        model.addAttribute("session", sessionPost);
+
 
         model.addAttribute(SESSIONS_POST_KEY, sessionPostDto);
         return "sessionPost";
@@ -69,6 +72,46 @@ public class SessionPostController {
 
         model.addAttribute(SESSIONS_POST_KEY, new SessionPostDto());
 //        model.addAttribute("sessionPostDtoList", sessionPostService.findAllSessionPost());
+        return "redirect:/sessionPost";
+    }
+
+    @GetMapping("/sessions/edit/{id}")
+    public String editSessionForm(@PathVariable Long id, Model model){
+
+        model.addAttribute("session", sessionPostService.findBySessionPostId(id));
+        return "editSession";
+
+    }
+
+    @PostMapping("/sessions/{id}")
+    public String updateStudent(@PathVariable Long id, @ModelAttribute("session") SessionPostDto sessionPostDto, Model model, Authentication authentication) throws IllegalAccessException {
+        SessionPost existingSession = sessionPostService.findBySessionPostId(id);
+
+        if(existingSession == null){
+            throw new IllegalAccessException("No session with the " + id + "exists");
+        }
+
+        existingSession.setSessionPostId(id);
+        existingSession.setTitle(sessionPostDto.getTitle());
+        existingSession.setDescription(sessionPostDto.getDescription());
+        existingSession.setCost(sessionPostDto.getCost());
+        existingSession.setStartTime(sessionPostDto.getStartTime());
+        existingSession.setEndTime(sessionPostDto.getEndTime());
+
+        User user = getUserByAuthentication(authentication);
+        if(user != null){
+            existingSession.setUser(user);
+        }
+
+        sessionPostService.updateSession(existingSession);
+        return "redirect:/sessionPost";
+
+    }
+
+    @GetMapping("/sessions/{id}")
+    //handle detelting sessions
+    public String deleteSession(@PathVariable Long id){
+        sessionPostService.deleteSession(id);
         return "redirect:/sessionPost";
     }
 }
