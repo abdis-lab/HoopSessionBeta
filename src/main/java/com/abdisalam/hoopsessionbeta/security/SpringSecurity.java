@@ -39,7 +39,7 @@ public class SpringSecurity {
                         .requestMatchers("/css/**", "/scripts/**", "/images/**", "/videos/**").permitAll()
                         .requestMatchers("/register/**","/register", "/index", "/login", "index.js", "/session.js").permitAll()
                         .requestMatchers("/profile/**").authenticated()
-                        .requestMatchers("/session", "/profile").hasRole("ADMIN")
+                        .requestMatchers("/session", "/profile", "/sessions/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
 

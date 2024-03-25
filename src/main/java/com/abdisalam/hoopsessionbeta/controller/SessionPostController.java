@@ -2,8 +2,10 @@ package com.abdisalam.hoopsessionbeta.controller;
 
 import com.abdisalam.hoopsessionbeta.dto.SessionPostDto;
 import com.abdisalam.hoopsessionbeta.dto.UserDto;
+import com.abdisalam.hoopsessionbeta.exception.SessionNotFoundException;
 import com.abdisalam.hoopsessionbeta.model.SessionPost;
 import com.abdisalam.hoopsessionbeta.model.User;
+import com.abdisalam.hoopsessionbeta.services.SessionPostImp;
 import com.abdisalam.hoopsessionbeta.services.SessionPostService;
 import com.abdisalam.hoopsessionbeta.services.UserService;
 import jakarta.validation.Valid;
@@ -13,10 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SessionPostController {
@@ -53,9 +57,6 @@ public class SessionPostController {
         User user = getUserByAuthentication(authentication);
         model.addAttribute("user", user);
 
-        SessionPost sessionPost = new SessionPost();
-        model.addAttribute("session", sessionPost);
-
 
         model.addAttribute(SESSIONS_POST_KEY, sessionPostDto);
         return "sessionPost";
@@ -64,7 +65,7 @@ public class SessionPostController {
     @PostMapping("/sessionPost/save")
     public String addSession(@Valid @ModelAttribute(SESSIONS_POST_KEY) SessionPostDto sessionPostDto, BindingResult bindingResult, Model model) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "sessionPost";
         }
 
@@ -75,43 +76,74 @@ public class SessionPostController {
         return "redirect:/sessionPost";
     }
 
-    @GetMapping("/sessions/edit/{id}")
-    public String editSessionForm(@PathVariable Long id, Model model){
-
-        model.addAttribute("session", sessionPostService.findBySessionPostId(id));
-        return "editSession";
-
-    }
-
-    @PostMapping("/sessions/{id}")
-    public String updateStudent(@PathVariable Long id, @ModelAttribute("session") SessionPostDto sessionPostDto, Model model, Authentication authentication) throws IllegalAccessException {
-        SessionPost existingSession = sessionPostService.findBySessionPostId(id);
-
-        if(existingSession == null){
-            throw new IllegalAccessException("No session with the " + id + "exists");
-        }
-
-        existingSession.setSessionPostId(id);
-        existingSession.setTitle(sessionPostDto.getTitle());
-        existingSession.setDescription(sessionPostDto.getDescription());
-        existingSession.setCost(sessionPostDto.getCost());
-        existingSession.setStartTime(sessionPostDto.getStartTime());
-        existingSession.setEndTime(sessionPostDto.getEndTime());
-
-        User user = getUserByAuthentication(authentication);
-        if(user != null){
-            existingSession.setUser(user);
-        }
-
-        sessionPostService.updateSession(existingSession);
-        return "redirect:/sessionPost";
-
-    }
-
+//    @GetMapping("/sessions/edit/{id}")
+//    public String editSessionForm(@PathVariable Long id, Model model){
+//        SessionPost sessionPost = sessionPostService.findBySessionPostId(id);
+//        SessionPostDto sessionPostDto = convertToDto(sessionPost);
+//
+//        model.addAttribute("session", sessionPostDto);
+//        return "editSession";
+//
+//    }
+//
+//    @PostMapping("/sessions/update")
+//    public String updateSession(@PathVariable Long id, @ModelAttribute("session") SessionPostDto sessionPostDto, RedirectAttributes redirectAttributes, Model model, Authentication authentication) throws IllegalAccessException {
+//        sessionPostService.updateSessionPost(id, sessionPostDto);
+//        redirectAttributes.addFlashAttribute("message", "Session post updated successfully!");
+//        return "redirect:/sessionPost";
+//    }
+//
+//
+//    private void updateSessionPostFromDto(SessionPostDto sessionPostDto, SessionPost sessionPost) {
+//        sessionPost.setTitle(sessionPostDto.getTitle());
+//        sessionPost.setDescription(sessionPostDto.getDescription());
+//        sessionPost.setCost(sessionPostDto.getCost());
+//        sessionPost.setStartTime(sessionPostDto.getStartTime());
+//        sessionPost.setEndTime(sessionPostDto.getEndTime());
+//        // Handle other fields as necessary, including relationships or complex types
+//    }
+//
     @GetMapping("/sessions/{id}")
-    //handle detelting sessions
-    public String deleteSession(@PathVariable Long id){
+    //handle deleting sessions
+    public String deleteSession(@PathVariable Long id) {
         sessionPostService.deleteSession(id);
         return "redirect:/sessionPost";
     }
+
+//
+
+//
+//
+//
+//
+    @GetMapping("/sessions/edit/{id}")
+    public String getSession(@PathVariable("id") Long id,@Valid @ModelAttribute("session") SessionPostDto sessionPostDto, Model model, RedirectAttributes redirectAttributes) {
+        try{
+            SessionPost sessionPost = sessionPostService.get(id);
+            model.addAttribute("session", new SessionPostDto());
+            return "editSession";
+        }catch(SessionNotFoundException e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "The Session Has been saved successfully.");
+            return "redirect:/sessionPost";
+        }
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

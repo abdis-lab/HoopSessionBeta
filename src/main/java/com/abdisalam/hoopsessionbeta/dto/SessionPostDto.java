@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SessionPostDto {
 
-    private Long sessionId;
+    private Long sessionPostId;
 
     @NotEmpty(message = "Enter a Facility Tittle")
     private String title;

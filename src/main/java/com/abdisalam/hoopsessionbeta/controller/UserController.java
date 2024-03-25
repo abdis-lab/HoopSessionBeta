@@ -1,7 +1,10 @@
 package com.abdisalam.hoopsessionbeta.controller;
 
+import com.abdisalam.hoopsessionbeta.dto.SessionPostDto;
 import com.abdisalam.hoopsessionbeta.dto.UserDto;
+import com.abdisalam.hoopsessionbeta.model.SessionPost;
 import com.abdisalam.hoopsessionbeta.model.User;
+import com.abdisalam.hoopsessionbeta.services.SessionPostService;
 import com.abdisalam.hoopsessionbeta.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -24,9 +27,11 @@ import java.util.List;
 public class UserController {
     private UserService userService;
 
+    private SessionPostService sessionPostService;
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, SessionPostService sessionPostService) {
         this.userService = userService;
+        this.sessionPostService = sessionPostService;
     }
 
     @ModelAttribute("user")
@@ -102,10 +107,15 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String showProfileInfo(Model model){
+    public String showProfileInfo(Model model, Authentication authentication){
         List<UserDto> userDtoList = userService.findAllUser();
         model.addAttribute("userInfo", userDtoList);
 
+//        User user = getUserByAuthentication(authentication);
+//        if(user != null){
+//            List<SessionPost> sessions = sessionPostService.findByUser(user);
+//            model.addAttribute("mySessions", sessions);
+//        }
         return "profile";
     }
     // ...

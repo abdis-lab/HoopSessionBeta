@@ -1,25 +1,21 @@
 package com.abdisalam.hoopsessionbeta.services;
 
 import com.abdisalam.hoopsessionbeta.dto.SessionPostDto;
+import com.abdisalam.hoopsessionbeta.exception.SessionNotFoundException;
 import com.abdisalam.hoopsessionbeta.model.SessionPost;
 import com.abdisalam.hoopsessionbeta.repository.SessionPostRepository;
-import com.abdisalam.hoopsessionbeta.services.SessionPostService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.StringUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * This class implements the SessionPostService interface and provides functionality to manage session posts.
+ */
 @Service
 @RequiredArgsConstructor
 public class SessionPostImp implements SessionPostService {
@@ -34,11 +30,22 @@ public class SessionPostImp implements SessionPostService {
         sessionPostRepository.save(sessionPost);
     }
 
-    @Transactional
-    @Override
-    public SessionPost updateSession(SessionPost sessionPost) {
-        return sessionPostRepository.save(sessionPost);
+    public void saveUpdateSession(SessionPost sessionPost){
+        sessionPostRepository.save(sessionPost);
     }
+
+//    @Transactional
+//    @Override
+//    public SessionPost updateSessionPost(Long id, SessionPostDto sessionPostDto) {
+//        SessionPost sessionPost = sessionPostRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("SessionPost not found"));
+//        sessionPost.setTitle(sessionPostDto.getTitle());
+//        sessionPost.setDescription(sessionPostDto.getDescription());
+//        sessionPost.setCost(sessionPostDto.getCost());
+//        sessionPost.setStartTime(sessionPostDto.getStartTime());
+//        sessionPost.setEndTime(sessionPostDto.getEndTime());
+//
+//        return sessionPostRepository.save(sessionPost);
+//    }
 
     private SessionPost convertToSessionPost(SessionPostDto sessionPostDto) {
         SessionPost sessionPost = new SessionPost();
@@ -53,8 +60,8 @@ public class SessionPostImp implements SessionPostService {
     }
 
     @Override
-    public SessionPost findBySessionPostId(Long id) {
-        return sessionPostRepository.findBySessionPostId(id);
+    public Optional<SessionPost> findById(Long id) {
+        return sessionPostRepository.findById(id);
     }
 
     @Override
@@ -75,7 +82,7 @@ public class SessionPostImp implements SessionPostService {
             sessionPostDto.setCost(sessionPost.getCost());
             sessionPostDto.setStartTime(sessionPost.getStartTime());
             sessionPostDto.setEndTime(sessionPost.getEndTime());
-            sessionPostDto.setSessionId(sessionPost.getSessionPostId());
+            sessionPostDto.setSessionPostId(sessionPost.getSessionPostId());
 
 
 
@@ -87,4 +94,12 @@ public class SessionPostImp implements SessionPostService {
     public void deleteSession(Long id) {
         sessionPostRepository.deleteById(id);
     }
+
+
+    @Override
+    public SessionPost get(Long id) throws SessionNotFoundException {
+        return sessionPostRepository.findById(id)
+                .orElseThrow(() -> new SessionNotFoundException("Could Not find Any Session with The Id " + id));
+    }
+
 }

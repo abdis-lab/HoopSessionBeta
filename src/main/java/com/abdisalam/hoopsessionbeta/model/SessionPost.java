@@ -17,8 +17,11 @@ import java.time.LocalDateTime;
 public class SessionPost {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sessionPostId;
+    public Long setSessionPostId(Long id){
+        return sessionPostId;
+    }
 
     private String description;
 
@@ -48,5 +51,9 @@ public class SessionPost {
         this.endTime = endTime;
         this.facility = facility;
         this.user = user;
+    }
+
+    public Long getSessionPostId() {
+        return sessionPostId;
     }
 }

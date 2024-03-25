@@ -2605,8 +2605,20 @@ input.tab:checked + .tab-content,
 .left-0 {
   left: 0px;
 }
+.left-3 {
+  left: 0.75rem;
+}
+.left-3\.5 {
+  left: 0.875rem;
+}
 .right-0 {
   right: 0px;
+}
+.right-2 {
+  right: 0.5rem;
+}
+.right-2\.5 {
+  right: 0.625rem;
 }
 .top-0 {
   top: 0px;
@@ -2620,26 +2632,8 @@ input.tab:checked + .tab-content,
 .top-3 {
   top: 0.75rem;
 }
-.right-2 {
-  right: 0.5rem;
-}
-.right-2\.5 {
-  right: 0.625rem;
-}
-.right-3 {
-  right: 0.75rem;
-}
-.right-3\.5 {
-  right: 0.875rem;
-}
 .top-3\.5 {
   top: 0.875rem;
-}
-.left-3 {
-  left: 0.75rem;
-}
-.left-3\.5 {
-  left: 0.875rem;
 }
 .-z-10 {
   z-index: -10;
@@ -2664,9 +2658,6 @@ input.tab:checked + .tab-content,
 }
 .m-4 {
   margin: 1rem;
-}
-.m-auto {
-  margin: auto;
 }
 .mx-auto {
   margin-left: auto;
@@ -2824,6 +2815,9 @@ input.tab:checked + .tab-content,
 .min-w-0 {
   min-width: 0px;
 }
+.max-w-2xl {
+  max-width: 42rem;
+}
 .max-w-full {
   max-width: 100%;
 }
@@ -2835,9 +2829,6 @@ input.tab:checked + .tab-content,
 }
 .max-w-sm {
   max-width: 24rem;
-}
-.max-w-2xl {
-  max-width: 42rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -2915,6 +2906,9 @@ input.tab:checked + .tab-content,
 .gap-2 {
   gap: 0.5rem;
 }
+.gap-3 {
+  gap: 0.75rem;
+}
 .gap-4 {
   gap: 1rem;
 }
@@ -2926,9 +2920,6 @@ input.tab:checked + .tab-content,
 }
 .gap-8 {
   gap: 2rem;
-}
-.gap-3 {
-  gap: 0.75rem;
 }
 .space-x-10 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -3079,10 +3070,6 @@ input.tab:checked + .tab-content,
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.bg-gray-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 .object-cover {
   -o-object-fit: cover;

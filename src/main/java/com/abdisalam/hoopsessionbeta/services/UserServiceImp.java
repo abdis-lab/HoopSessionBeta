@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of UserService interface.
+ * Manages user-related operations, such as saving a user, retrieving a user by email, username, or id, and
+ * retrieving all users.
+ */
 @Service
 public class UserServiceImp implements UserService{
 
